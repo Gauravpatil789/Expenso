@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: expenso_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: expenso
+      POSTGRES_USER: expenso
+      POSTGRES_PASSWORD: expenso123
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+
+volumes:
+  pgdata:
